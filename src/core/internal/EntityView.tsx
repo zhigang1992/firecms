@@ -207,6 +207,12 @@ export function EntityView<M extends { [Key: string]: any }, UserType>({
     });
 
     useEffect(() => {
+        if (status === "existing" && !dataLoading && entity?.values == null) {
+            setStatus("new");
+        }
+    }, [dataLoading, entity, status])
+
+    useEffect(() => {
         if (entity)
             setReadOnly(!canEdit(permissions, entity, authController, path, context));
     }, [entity]);
